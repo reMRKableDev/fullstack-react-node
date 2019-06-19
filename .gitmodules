@@ -1,4 +1,0 @@
-[submodule "client"]
-	path = client
-	url = ./client
-	branch = master
