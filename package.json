@@ -6,14 +6,18 @@
   "scripts": {
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "start": "concurrently \"npm run server\" \"npm run client\" "
+    "start": "concurrently -kill-others-on-fail \"npm run server\" \"npm run client\" "
   },
   "author": "Malcolm R. Kente",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",
     "concurrently": "^4.1.0",
-    "express": "^4.17.1"
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "pg": "^7.11.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.8.10"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
