@@ -1,4 +1,4 @@
-const { connector, Sequelize } = require("../configuration/dbConfig");
+const { connector, Sequelize } = require("../config/dbConfig");
 
 module.exports = connector.define("user", {
   name: Sequelize.STRING,

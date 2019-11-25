@@ -9,31 +9,29 @@ module.exports = {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then(resultsFromApi => {
-        // Get each user from resultsFromApi.data.
-        // For each user, we should add them to the database using findOrCreate.
         let apiData = resultsFromApi.data;
-
+        let apiUserResultsFromDatabase = [];
         apiData.forEach(user => {
-          //Send results to database to be saved.
           User.findOrCreate({
-            where: {
-              email: user.email
-            },
-            defaults: {
-              name: user.name
-            }
+            where: { email: user.email },
+            defaults: { name: user.name }
           })
-            .then(resultsFromDataBase => {
-              // Send data to the front end (React)
-              res.send(resultsFromDataBase.dataValues);
-            })
-            .catch(error =>
-              console.error(`Couldn't add new user: ${error.stack}`)
-            );
+            .then(() => console.log("Successfully saved users"))
+            .catch(err => console.error(`Couldn't save users: ${err.stack}`));
         });
+        res.send(resultsFromApi.data);
       })
       .catch(error =>
         console.error(`Something went wrong with axios fetch: ${error.stack}`)
       );
+  },
+  postNewUser: (req, res) => {
+    console.log("User from frontend", req.body);
+    let newUser = req.body;
+    User.create({ name: newUser.name, email: newUser.email })
+      .then(results => {
+        res.send(results.dataValues);
+      })
+      .catch(err => console.error(`Coudln't save user: ${err.stack}`));
   }
 };
