@@ -8,9 +8,10 @@ module.exports = {
   getUsersFromApi: (req, res) => {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
-      .then(results => {
-        let usersArray = results.data;
-        usersArray.forEach(user => {
+      .then(resultsFromApi => {
+        let apiData = resultsFromApi.data;
+        let apiUserResultsFromDatabase = [];
+        apiData.forEach(user => {
           User.findOrCreate({
             where: { email: user.email },
             defaults: { name: user.name }
@@ -18,7 +19,7 @@ module.exports = {
             .then(() => console.log("Successfully saved users"))
             .catch(err => console.error(`Couldn't save users: ${err.stack}`));
         });
-        res.send(results.data);
+        res.send(resultsFromApi.data);
       })
       .catch(error =>
         console.error(`Something went wrong with axios fetch: ${error.stack}`)
