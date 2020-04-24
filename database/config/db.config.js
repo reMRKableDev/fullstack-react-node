@@ -1,12 +1,11 @@
 require("dotenv").config();
 const Sequelize = require("sequelize");
 
-const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+/* const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env; */
 
-const connector = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-  host: DB_HOST,
-  dialect: "mysql",
-});
+const connector = new Sequelize(
+  "mysql://x81y1hixyxhvzms9:baxfaajnno760i4r@fojvtycq53b2f2kx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/smi9h2izeg08v9xu"
+);
 
 const authenticate = async (connector) => {
   try {
